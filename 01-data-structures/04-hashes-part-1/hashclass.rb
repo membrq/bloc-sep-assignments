@@ -16,8 +16,6 @@ class HashClass
       self.resize #resize
       self[key] = value #pair value and key
     elsif (@items[i].key === key) && (@items[i].value != value) #if collision = true & values are different
-      puts @items[i].value
-      puts value
       self.resize #resize
       @items[i] = value #pair key and value
     end

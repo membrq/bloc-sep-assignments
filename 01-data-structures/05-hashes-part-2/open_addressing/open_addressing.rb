@@ -6,10 +6,28 @@ class OpenAddressing
   end
 
   def []=(key, value)
+    new_item = Node.new(key, value) #create new hash
+    i = index(key, size) #create i var to store index
+
+    if @items[i] === nil #if index === nil
+      @items[i] = new_item #assign new item to index
+    elsif @items[i].key != key #if key of index != key of new item
+      self.resize #resize
+      self[key] = value #pair value and key
+    elsif (@items[i].key === key) && (@items[i].value != value)
+      if self.next_open_index(@items[i]) === -1
+        self.resize
+        @items[i] = value
+      elsif self.next_open_index(@items[i]) != -1
+        @items[i] = value
+      end
+    end
   end
 
   def [](key)
-    @items[index(key, size)]
+    if @items[index(key, size)] != nil && @items[index(key, size)].key === key
+      @items[index(key, size)].value
+    end
   end
 
   # Returns a unique, deterministically reproducible index into an array
@@ -25,9 +43,12 @@ class OpenAddressing
 
   # Given an index, find the next open index in @items
   def next_open_index(index)
-    #loop through @items or check index var only?
-    if index != nil
-      return -1
+    @items.each do |item|
+      if item === nil
+        return index #return index where item == nil
+      else
+        return -1
+      end
     end
   end
 
@@ -38,5 +59,13 @@ class OpenAddressing
 
   # Resize the hash
   def resize
+    old_array = @items
+    @items = Array.new(old_array.length * 2)
+
+    old_array.each do |item|
+      unless item === nil #unless item is nil
+        self[item.key] = item.value #assign value to key
+      end
+    end
   end
 end

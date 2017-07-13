@@ -6,25 +6,104 @@ class LinkedList
 
   # This method creates a new `Node` using `data`, and inserts it at the end of the list.
   def add_to_tail(node)
+    if @head === nil
+      @head = node
+      @tail = @head
+      @tail.next = nil
+    else
+      current = @head
+      while current.next != nil
+        current = current.next
+      end
+      current.next = node
+      @tail = current.next
+      @tail.next = nil
+    end
   end
 
   # This method removes the last node in the lists and must keep the rest of the list intact.
   def remove_tail
+    current = @head
+    if @tail === nil
+      return nil
+    elsif @head === @tail
+      @head = nil
+      @tail = nil
+    else
+      while (current.next != nil) && (current.next != @tail)
+        current = current.next
+      end
+      @tail = current
+      @tail.next = nil
+    end
   end
 
   # This method prints out a representation of the list.
   def print
+    current = @head
+    while current.next != nil
+      current = current.next
+    end
   end
 
   # This method removes `node` from the list and must keep the rest of the list intact.
   def delete(node)
+    current = @head
+    if @tail === nil
+      return nil
+    elsif @head === @tail
+      @head = nil
+      @tail = nil
+    elsif @head === node
+      @head = @head.next
+    elsif @tail === node
+      remove_tail
+    else
+      while (current.next != nil) && (current.next != node)
+        current = current.next
+      end
+      current.next = current.next.next
+    end
   end
 
   # This method adds `node` to the front of the list and must set the list's head to `node`.
   def add_to_front(node)
+    if (@head === nil) && (@tail === nil) #if hash is empty
+      @head = node
+      @tail = node
+    else
+      temp_node = @head #stores head in temp variable
+      @head = node #assigns node as head of list
+      @head.next = temp_node #assigns original "head" value to 2nd/next item in list
+    end
   end
 
   # This method removes and returns the first node in the Linked List and must set Linked List's head to the second node.
   def remove_front
+    if (@head === nil) || (@head.next === nil) || (@head === @tail)
+      @head = nil
+    else
+      @head = @head.next
+    end
   end
+
+  def find_node(key)
+   while @head != nil && @head.key != key
+     @head = @head.next
+   end
+   @head
+ end
+
+ def size
+   i = 0
+   if @head != nil
+     i = 1
+     current = @head
+     while current != @tail
+       current = current.next
+       i += 1
+     end
+   end
+   return i
+ end
 end
