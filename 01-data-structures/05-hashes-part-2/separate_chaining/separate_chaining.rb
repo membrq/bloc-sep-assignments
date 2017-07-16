@@ -3,57 +3,44 @@ require_relative 'node'
 
 class SeparateChaining
   attr_reader :max_load_factor
+  attr_reader :count
 
   def initialize(size)
     @items = Array.new(size)
+    @count = 0.0
     @max_load_factor = 0.7
   end
 
   def []=(key, value)
-
     new_item = Node.new(key, value) #create new hash
     i = index(key, self.size)
-    if @items[i] === nil #if index === nil
+    if @items[i] === nil
       list = LinkedList.new
       list.add_to_tail(new_item)
       @items[i] = list
-    elsif @items[i].size < 5 #max load density = 5; should call size from linked_list
+      #@count += 1
+      #puts @count
+    elsif @items[i].size < 5 #max load density = 5
       @items[i].add_to_tail(new_item)
-    #elsif (@items[i].key === key) && (@items[i].value != value)
-    #  if @items[i].size < 5
-    #    @items[i].add_to_tail(new_item)
-    else #if load density is greater than or equal to 5
+      #@count += 1
+      #puts @count
+    else
       self.resize
       self[key] = value
-      #@items[i] = value
     end
-
-    if self.load_factor > @max_load_factor #if load is greater than max load
+    if load_factor >= @max_load_factor
       self.resize
-      #self[key] = value
     end
   end
 
   def [](key)
     i = index(key, self.size)
-    @items.each do |item|
-      #if item != nil
-      #  new_item = @items[i].find_node(key)
-      #  if new_item.value != nil
-
-      item = @items[i].find_node(key)
+    if @items[i] != nil
+        item = @items[i].find_node(key)
         if item.value != nil
           return item.value
         end
-        #item = item.key
-        puts item.key
-        puts item.value
-        #return item.value
-      #  end
-    #  end
     end
-    #search linked items + return correct key
-    #lookup is based on hash value first (to find 1st node in linked list), then find key
   end
 
   # Returns a unique, deterministically reproducible index into an array
@@ -68,43 +55,27 @@ class SeparateChaining
   end
 
   # Calculate the current load factor
-  def load_factor #number of total items / array length
-    count = 0.0
-    for i in 0..self.size-1
-      if @items[i] != nil
-        count += @items[i].size
-    #@items.each do |list|
-    #  if list != nil
-    #    list.each do |item|
-          #if item != nil
-    #        item = item.key
-    #        count += item.size
-        #  end
-    #    end
-      end
-    end
-    (count / self.size).floor2(1)
-    #sprintf('%.1f', count/size).to_f #returns string
+  def load_factor #number of total nodes / array length
+    #count = 0.0
+    #for i in 0..self.size-1
+    #  if @items[i] != nil
+        @items.each do |list|
+          if list != nil
+            puts list
+            @count += 1
+          end
+        end
+    #  end
+    #end
+    #@count / self.size.floor2(1)
+    #@count / self.size.to_f
+    puts size
+    @count / size
   end
 
   # Simple method to return the number of items in the hash
-  # return the sum of the sizes from the linked lists,
-  # including nil entries (counts as 1) - Zac thinks,
-  # otherwise those count as 0
   def size
     @items.length
-  #  count = 0.0
-    #for i in 0..self.size-1
-  #  @items.each do |list|
-  #    if list != nil
-  #      list.each do |item|
-          #if item != nil
-  #          item = item.key
-  #          count += item.size
-        #  end
-  #      end
-  #    end
-  #  end
   end
 
   # Resize the hash
@@ -112,12 +83,19 @@ class SeparateChaining
     old_array = @items
     @items = Array.new(old_array.length * 2)
 
-    old_array.each do |item|
-      unless item === nil
-        self[item.key] = item.value #assign value to key
+    old_array.each do |list|
+      if list != nil
+        current = list.head
+        if current != list.tail
+          self[current.key] = current.value
+          current = current.next
+        elsif current === list.tail
+          self[current.key] = current.value
+        end
       end
     end
   end
+
 end
 
 class Float
