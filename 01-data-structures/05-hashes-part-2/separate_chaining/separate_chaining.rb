@@ -18,17 +18,13 @@ class SeparateChaining
       list = LinkedList.new
       list.add_to_tail(new_item)
       @items[i] = list
-      #@count += 1
-      #puts @count
     elsif @items[i].size < 5 #max load density = 5
       @items[i].add_to_tail(new_item)
-      #@count += 1
-      #puts @count
     else
       self.resize
       self[key] = value
     end
-    if load_factor >= @max_load_factor
+    if self.load_factor >= @max_load_factor
       self.resize
     end
   end
@@ -59,17 +55,20 @@ class SeparateChaining
     #count = 0.0
     #for i in 0..self.size-1
     #  if @items[i] != nil
+    #    count += @items[i].size
+    #  end
+    #end
+    #count / self.size
         @items.each do |list|
           if list != nil
             puts list
-            @count += 1
+            @count += 0.5
+            puts @count
           end
         end
-    #  end
-    #end
     #@count / self.size.floor2(1)
     #@count / self.size.to_f
-    puts size
+  #  puts size
     @count / size
   end
 
