@@ -8,4 +8,8 @@ class Node
     @title = title
     @rating = rating
   end
+
+  def <(node)
+    @rating < node.rating
+  end
 end

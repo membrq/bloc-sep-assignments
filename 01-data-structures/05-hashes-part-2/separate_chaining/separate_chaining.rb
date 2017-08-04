@@ -7,7 +7,7 @@ class SeparateChaining
 
   def initialize(size)
     @items = Array.new(size)
-    @count = 0.0
+    #@count = 0.0
     @max_load_factor = 0.7
   end
 
@@ -19,10 +19,14 @@ class SeparateChaining
       list.add_to_tail(new_item)
       @items[i] = list
     elsif @items[i].size < 5 #max load density = 5
-      @items[i].add_to_tail(new_item)
+      if self[key] != value
+        @items[i].add_to_tail(new_item)
+      end
     else
-      self.resize
-      self[key] = value
+      if self[key] != value
+        self.resize
+        self[key] = value
+      end
     end
     if self.load_factor >= @max_load_factor
       self.resize
@@ -32,11 +36,14 @@ class SeparateChaining
   def [](key)
     i = index(key, self.size)
     if @items[i] != nil
-        item = @items[i].find_node(key)
+      item = @items[i].find_node(key)
+      if item != nil
         if item.value != nil
           return item.value
         end
+      end
     end
+    return nil
   end
 
   # Returns a unique, deterministically reproducible index into an array
@@ -52,24 +59,16 @@ class SeparateChaining
 
   # Calculate the current load factor
   def load_factor #number of total nodes / array length
-    #count = 0.0
-    #for i in 0..self.size-1
-    #  if @items[i] != nil
-    #    count += @items[i].size
-    #  end
-    #end
-    #count / self.size
+    count = 0.0
         @items.each do |list|
           if list != nil
+            #list.size
             puts list
-            @count += 0.5
-            puts @count
+            count += list.size
+            puts count
           end
         end
-    #@count / self.size.floor2(1)
-    #@count / self.size.to_f
-  #  puts size
-    @count / size
+    count / size
   end
 
   # Simple method to return the number of items in the hash

@@ -88,16 +88,16 @@ class LinkedList
   end
 
   def find_node(key)
-   while @head != nil && @head.key != key
-     @head = @head.next
-   end
-   @head
+    current = @head
+    while current != nil && current.key != key
+      current = current.next
+    end
+    current
  end
 
  def size
-   i = 0
+   i = 1
    if @head != nil
-     i = 1
      current = @head
      while current != @tail
        current = current.next

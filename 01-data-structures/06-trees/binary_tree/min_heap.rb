@@ -1,36 +1,45 @@
 require_relative 'node'
 
-class BinarySearchTree
+class MinHeapTree
 
   def initialize(root)
     @root = root
   end
 
-  #finds empty "leaf" for node
-  def insert(root, node) #assumes tree already has root
-    if node.rating < root.rating
-      if root.left === nil
-        root.left = node
-      else #left subtree; not original root
-        insert(root.left, node)
+  def insert(root, node)
+    if node.rating < root.rating #if node is less than root
+      temp = root #assign root to temp var
+      root = node #assign node as root
+      puts "Node with value #{temp.rating} is being replaced with #{node.rating}"
+      #search for correct temp var position
+      if root.left === nil #check if left leaf is empty
+        puts root.title
+        puts root.rating
+        root.left = temp #assign temp to left leaf
+      elsif root.right === nil
+        root.right = temp
+      else #left subtree
+        insert(root.left, temp) #insert temp in left subtree of left leaf
       end
     elsif node.rating > root.rating
-      if root.right === nil
+      if root.left === nil
+        root.left = node
+      elsif root.right === nil
         root.right = node
       else
-        insert(root.right, node)
+        insert(root.left, node)
       end
     end
   end
 
   # Recursive Depth First Search
   # returns Node object if data is found
-  def find(root, data) #like a stack
-    if data === nil #if data is nil
+  def find(root, data)
+    if data === nil
       return nil
-    elsif root.title === data #if root matches data
+    elsif root.title === data
       return root
-    elsif root.title != data && root.left === nil #if root is dif from data and left is empty
+    elsif root.title != data && root.left === nil
       if root.right === data
         return root.right
       elsif root.right === nil
@@ -38,7 +47,7 @@ class BinarySearchTree
       else
         find(root.right, data)
       end
-    elsif root.title != data && root.left != nil #if root is dif from data and left is not empty
+    elsif root.title != data && root.left != nil
       if root.left === data
         return root.left
       else
@@ -63,20 +72,19 @@ class BinarySearchTree
 
   # Breadth First Search
   # prints each node's data from top to bottom
-  def printf(children=nil) #like a queue
-    #param represents default value if value is not specified by client
-    array = [@root]  #begin array with @root as 1st item
+  def printf(children=nil)
+    array = [@root] #begin array with @root as 1st item
     output = []
     while array.length > 0
-      node = array.shift #returns 1st element of self + returns it
+      node = array.shift #returns 1st element of self
       if node.left != nil #if left leaf of child has content
-        array.push(node.left) #push that leaf to the array
+        array.push(node.left) #push leaf to the array
       end
       if node.right != nil
         array.push(node.right)
       end
       output.push("#{node.title}: #{node.rating}") #push title/rating for each child to output array
     end
-    output.each {|movie| puts movie} #print each item in output array
+    output.each {|movie| puts movie}
   end
 end
