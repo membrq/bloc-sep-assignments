@@ -1,0 +1,44 @@
+//1: making tea
+  FILL kettle with water
+  TURN kettle on
+  GET mug from cupboard
+  GET teabag from cupboard
+  PUT teabag in mug
+
+  WHEN water is boiled
+    POUR water into mug
+    ADD milk to mug
+    DRINK UP
+  END
+
+
+//2: making breakfast
+  CLEAN frying pan
+  GET bacon and eggs from fridge
+  GET bowl, whisk, plates, tongs, spatula, and forks from cupboard
+  PUT bacon in frying pan
+  TURN element on
+  PUT eggs in bowl
+  WHISK eggs
+  USE tongs go turn bacon until cooked
+  PUT bacon on plate
+  PAT bacon with paper towels
+  DRAIN fat from pan
+  PUT eggs in pan
+  STIR eggs with spatula until cooked
+  PUT eggs on plate
+  EAT UP
+
+
+//3: grocery shopping
+  CHECK fridge and pantry to assess inventory
+  ADD missing items to grocery list
+  DRIVE to grocery store
+  GET shopping cart
+  FOR each item on grocery list
+    FIND item in grocery store
+    PUT item in shopping cart
+  END
+  CHECKOUT from grocery store
+  DRIVE home
+  PUT groceries away in fridge and pantry
