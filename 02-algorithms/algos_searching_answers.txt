@@ -1,0 +1,8 @@
+1. It would take 7 iterations to find letter G using linear search.
+
+2. It would take 4 iterations to find letter G using binary search.
+
+A B C D E F G
+D E F G
+F G
+G

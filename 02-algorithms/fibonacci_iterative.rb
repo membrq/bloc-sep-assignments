@@ -1,3 +1,5 @@
+require 'benchmark'
+
 def fib(n)
   if n === 0
     return 0
@@ -24,3 +26,6 @@ puts fib(6)
 puts fib(7)
 puts fib(8)
 puts fib(9)
+
+puts Benchmark.measure{fib(20)}
+#0.000000   0.000000   0.000000 (  0.000009)
