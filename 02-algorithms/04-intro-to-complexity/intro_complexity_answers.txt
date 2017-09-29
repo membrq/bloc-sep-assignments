@@ -1,0 +1,30 @@
+1. An example of an O(1) algorithm is a hare. An O(2n) is a tortoise.
+
+2. The best case scenario for binary search occurs when the item you're
+   searching for is at the midpoint of the collection.
+
+3. The worst-case scenario for binary search occurs when the item you're
+   searching for is in the last position the algorithm will check.
+
+4. The bounded-case scenario for binary search occurs when the item you're
+   searching for is found midway between the first and last items checked.
+
+5. See graph 1: https://docs.google.com/spreadsheets/d/1XjNZakmYCWzG16iTN8nAMMwLeNLbhxL9lZrF7fS1ZxM/edit?usp=sharing
+
+6. The limit of the function (see graph) as n approaches infinity is infinity.
+
+7. The Big-O of the graph is O(n).
+
+8.  def linear(array)
+      array.each do |item|
+        puts item
+      end
+    end
+
+9. See graph 2: https://docs.google.com/spreadsheets/d/1XjNZakmYCWzG16iTN8nAMMwLeNLbhxL9lZrF7fS1ZxM/edit?usp=sharing
+
+10. The Big-O of binary search is O(n).
+
+11. The Big-Ω of binary search is O(1).
+
+12. The Big-Ө (bounded case) of binary search is O(logn).
