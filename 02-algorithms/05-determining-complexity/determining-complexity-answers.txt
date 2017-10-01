@@ -1,0 +1,20 @@
+1. The complexity is O(1) because it takes the same amount of time
+   to execute, regardless of what's passed in for n.
+
+2. The complexity is O(n) because the algorithm will iterate once over
+   every item in the array. The number of operations will grow
+   linearly.
+
+3. The complexity is O(n) because even though it's a 2D array, the
+   algorithm will iterate once over every item in the array. The
+   number of operations will grow linearly.
+
+4. The complexity is O(2^n). If n is greater than 1, the algorithm
+   calls itself twice recursively with each iteration.
+
+5. The complexity is O(n) because in the while loop, the algorithm
+   will iterate once over every item in the array. The number of
+   operations will grow linearly.
+
+6. The complexity is O(n^2). The algorithm calls itself twice
+   recursively. 
