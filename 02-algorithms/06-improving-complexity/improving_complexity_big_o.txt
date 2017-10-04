@@ -1,0 +1,10 @@
+//give time complexity of each "improving algorithms" solution
+
+1. The complexity of version 1 is O(n2) because the algorithm uses
+   nested loops.
+
+2. The complexity of version 2 is O(nlogn). After flattening, the Ruby
+   quicksort algorithm, 'Sort', is called.
+
+3. The complexity of version 3 is O(nlogn) because it uses a divide
+   & conquer heapsort algorithm.
