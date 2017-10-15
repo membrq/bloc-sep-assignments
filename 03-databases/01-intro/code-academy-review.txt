@@ -1,0 +1,46 @@
+REMOVE DUPLICATES: (SELECT DISTINCT genre FROM movies;)
+
+genres = movies.genre.unique
+
+
+FILTER RECORDS: (SELECT * FROM movies WHERE imdb_rating > 8;)
+
+IF movies.imdb_rating > 8
+   return movies
+END
+
+
+SORT RECORDS: (SELECT * FROM movies ORDER BY imdb_rating DESC;)
+
+movies = movies.all.sort_by_desc_order
+
+
+LIMIT RECORDS RETURNED: (SELECT * FROM movies WHERE name BETWEEN 'A' AND 'J';)
+
+FOR movies.all
+  IF movies.name.char[0] === 'A' to 'J'
+    return movies
+  END
+END
+
+
+GROUP RECORDS INTO SECTIONS: (SELECT price, COUNT(*) FROM fake_apps GROUP BY price;)
+
+FOR fake_apps
+  downloads.sort_by_price
+END
+
+
+CALCULATIONS WITH AGGREGATE FUNCTIONS: (SELECT SUM(downloads) FROM fake_apps;)
+
+movies = downloads.all.count
+
+
+
+JOIN TABLES: (SELECT * FROM albums JOIN artists ON albums.artist_id = artists.id;)
+
+FOR movies.all
+  IF albums != nil && artists != nil
+    albums.artist_id = artists.id
+  END
+END
