@@ -1,90 +1,97 @@
-require_relative 'node'
+class Node
+  attr_accessor :title
+  attr_accessor :rating
+  attr_accessor :left
+  attr_accessor :right
 
-class MinHeapTree
-
-  def initialize(root)
-    @root = root
-  end
-
-  def insert(root, node)
-    if node.rating < root.rating #if node is less than root
-      temp = root #assign root to temp var
-      root = node #assign node as root
-      puts "Node with value #{temp.rating} is being replaced with #{node.rating}"
-      #search for correct temp var position
-      if root.left === nil #check if left leaf is empty
-        puts root.title
-        puts root.rating
-        root.left = temp #assign temp to left leaf
-      elsif root.right === nil
-        root.right = temp
-      else #left subtree
-        insert(root.left, temp) #insert temp in left subtree of left leaf
-      end
-    elsif node.rating > root.rating
-      if root.left === nil
-        root.left = node
-      elsif root.right === nil
-        root.right = node
-      else
-        insert(root.left, node)
-      end
-    end
-  end
-
-  # Recursive Depth First Search
-  # returns Node object if data is found
-  def find(root, data)
-    if data === nil
-      return nil
-    elsif root.title === data
-      return root
-    elsif root.title != data && root.left === nil
-      if root.right === data
-        return root.right
-      elsif root.right === nil
-        return nil
-      else
-        find(root.right, data)
-      end
-    elsif root.title != data && root.left != nil
-      if root.left === data
-        return root.left
-      else
-        find(root.left, data)
-      end
-    end
-  end
-
-  def delete(root, data)
-    if data === nil
-      return nil
-    else
-      node = self.find(root, data)
-      if node === nil
-        return nil
-      else
-        node.title = nil
-        node.rating = nil
-      end
-    end
-  end
-
-  # Breadth First Search
-  # prints each node's data from top to bottom
-  def printf(children=nil)
-    array = [@root] #begin array with @root as 1st item
-    output = []
-    while array.length > 0
-      node = array.shift #returns 1st element of self
-      if node.left != nil #if left leaf of child has content
-        array.push(node.left) #push leaf to the array
-      end
-      if node.right != nil
-        array.push(node.right)
-      end
-      output.push("#{node.title}: #{node.rating}") #push title/rating for each child to output array
-    end
-    output.each {|movie| puts movie}
+  def initialize(title, rating)
+    @title = title
+    @rating = rating
   end
 end
+
+class MinHeap
+  attr_accessor :node
+
+  def initialize(size)
+    @items = Array.new(size)
+  end
+
+  def bubble_up(index)
+    parent_index = (index / 2)
+
+    #if the parent is already greater than the child
+    return if @items[parent_index].rating <= @items[index].rating
+
+    #otherwise we exchange the child with the parent
+    swap(index, parent_index)
+
+    #and keep bubbling up
+    bubble_up(parent_index)
+  end
+
+  def insert(node)
+    if @items.empty?
+      @items.push(node)
+    end
+
+    root = @items[0]
+
+    if !@items.empty?
+      if node.rating < root.rating
+        @items.push(node) #insert node at last index position
+        puts "Test"
+        bubble_up(@items.size-1)
+      elsif node.rating > root.rating
+        @items.push(node)
+        bubble_up(@items.size-1)
+      end
+    else
+      return nil
+    end
+  end
+
+  def swap(root, node)
+    @items[root], @items[node] = @items[node], @items[root]
+  end
+
+  def find(node)
+    @items.each_with_index do |item, index|
+      if item.title === node.title
+        puts "I found the item! #{item.title}"
+        puts "Here is the item's index position: #{index}"
+      end
+    end
+  end
+
+  def delete(root, node)
+    @items.each_with_index do |item, index|
+      if item.title === node.title
+        @items.delete(item)
+      end
+    end
+    bubble_up(@items.size-1)
+    return @items
+  end
+
+  def print
+    @items.each do |item|
+      puts item.title
+    end
+  end
+end
+
+my_movies = MinHeap.new(0)
+root = Node.new("Lion", 98)
+movie_1 = Node.new("Beasts of No Nation", 91)
+movie_2 = Node.new("Avatar", 83)
+movie_3 = Node.new("Okja", 85)
+movie_4 = Node.new("Star Wars", 90)
+my_movies.insert(root)
+my_movies.insert(movie_1)
+my_movies.insert(movie_2)
+my_movies.insert(movie_3)
+my_movies.insert(movie_4)
+my_movies.print
+my_movies.find(movie_4)
+my_movies.delete(root, movie_2)

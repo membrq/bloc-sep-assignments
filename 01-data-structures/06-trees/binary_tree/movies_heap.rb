@@ -2,17 +2,17 @@
 
 puts "hello"
 
-require_relative 'min_heap'
+#require_relative 'min_heap'
 
-root = Node.new("Lion", 98)
-my_movies = MinHeapTree.new(root)
+#root = Node.new("Lion", 98)
+#my_movies = MinHeapTree.new(root)
 
 
 #movie = Node.new("Moana", 96)
 #my_movies.insert(root, movie)
 
-movie = Node.new("Beasts of No Nation", 91)
-my_movies.insert(root, movie)
+#movie = Node.new("Beasts of No Nation", 91)
+#my_movies.insert(root, movie)
 
 #my_movies.printf
 
@@ -22,8 +22,8 @@ my_movies.insert(root, movie)
 #movie = Node.new("The Dark Knight", 94)
 #my_movies.insert(root, movie)
 
-movie = Node.new("Avatar", 83)
-my_movies.insert(root, movie)
+#movie = Node.new("Avatar", 83)
+#my_movies.insert(root, movie)
 
 #movie = Node.new("Inside Out", 97)
 #my_movies.insert(root, movie)
@@ -43,4 +43,4 @@ my_movies.insert(root, movie)
 #movie = Node.new("ET", 90)
 #my_movies.insert(root, movie)
 
-my_movies.printf
+#my_movies.printf
